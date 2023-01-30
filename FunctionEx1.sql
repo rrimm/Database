@@ -1,0 +1,87 @@
+-- 제어 흐름 함수
+SELECT IF (100>200, '참이다', '거짓이다');
+
+SELECT IFNULL(NULL, '널이군요'), IFNULL(100, '널이군요');	
+
+SELECT NULLIF(100,100), IFNULL(200,100);
+
+SELECT 	CASE 10
+		WHEN 1  THEN  '일'
+		WHEN 5  THEN  '오'
+		WHEN 10 THEN  '십' 
+		ELSE '모름'
+	END;
+    
+-- 문자열 함수
+SELECT ASCII('A'), CHAR(65);
+SELECT ASCII('A'), CONVERT(CHAR(65) USING UTF8);
+SELECT ASCII('A'), CONVERT(CHAR(65) USING UTF8), CHAR(65);	-- CHAR(65)를 'OPEN VALUE IN VIEWER'을 통해 텍스트로 보이게 할 수 있음
+
+SELECT BIT_LENGTH('abc'),  CHAR_LENGTH('abc'), LENGTH('abc');
+SELECT BIT_LENGTH('가나다'),  CHAR_LENGTH('가나다'), LENGTH('가나다');	-- MYSQL 데이터베이스는 영문자 한글자 처리 시 1BYTE, 한글 한글자를 처리할 때 기본적으로 3BYTE 사용
+
+SELECT CONCAT_WS('/', '2020', '01', '01');
+
+SELECT 
+    ELT(2, '하나', '둘', '셋'),
+    FIELD('둘', '하나', '둘', '셋'),
+    FIND_IN_SET('둘', '하나,둘,셋'),
+    INSTR('하나둘셋', '둘'),
+    LOCATE('둘', '하나둘셋');		-- java는 문자열 위치의 경우 0부터 시작하지만 MYSQL은 1부터 시작
+
+SELECT FORMAT(123456.123456, 4);
+
+SELECT BIN(31), HEX(31), OCT(31);
+
+SELECT INSERT('abcdefghi', 3, 4, '@@@@'), INSERT('abcdefghi', 3, 2, '@@@@');
+
+SELECT LEFT('abcdefghi', 3), RIGHT('abcdefghi', 3);
+
+SELECT LOWER('abcdEFGH'), UPPER('abcdEFGH');
+
+SELECT LPAD('이것이', 5, '##'), RPAD('이것이', 8, '##');
+
+SELECT LTRIM('   이것이'), RTRIM('이것이   ');
+
+SELECT TRIM('   이것이   '), TRIM(BOTH 'ㅋ' FROM 'ㅋㅋㅋ재밌어요.ㅋㅋㅋ');
+
+SELECT REPEAT('이것이', 3);
+
+SELECT REPLACE ('이것이 MySQL이다', '이것이' , 'This is');
+
+SELECT REVERSE ('MySQL');
+
+SELECT CONCAT('이것이', SPACE(10), 'MySQL이다');	-- 문자열 10 길이 안에서 공백 반환
+
+SELECT SUBSTRING('대한민국만세', 3, 2);
+
+SELECT SUBSTRING_INDEX('cafe.naver.com', '.', 2),  SUBSTRING_INDEX('cafe.naver.com', '.', -2);
+
+-- 날짜 및 시간 함수
+SELECT ADDDATE('2025-01-01', INTERVAL 31 DAY), ADDDATE('2025-01-01', INTERVAL 1 MONTH);
+SELECT SUBDATE('2025-01-01', INTERVAL 31 DAY), SUBDATE('2025-01-01', INTERVAL 1 MONTH);
+
+SELECT ADDTIME('2025-01-01 23:59:59', '1:1:1'), ADDTIME('15:00:00', '2:10:10');
+SELECT SUBTIME('2025-01-01 23:59:59', '1:1:1'), SUBTIME('15:00:00', '2:10:10');
+
+SELECT YEAR(CURDATE()), MONTH(CURDATE()), DAYOFMONTH(CURDATE());
+SELECT HOUR(CURTIME()), MINUTE(CURRENT_TIME()), SECOND(CURRENT_TIME), MICROSECOND(CURRENT_TIME);
+
+SELECT DATE(NOW()), TIME(NOW());
+
+SELECT DATEDIFF('2025-01-01', NOW()), TIMEDIFF('23:23:59', '12:11:10');
+
+SELECT DAYOFWEEK(CURDATE()), MONTHNAME(CURDATE()), DAYOFYEAR(CURDATE());
+
+SELECT LAST_DAY('2025-02-01');
+
+SELECT MAKEDATE(2025, 32);
+
+SELECT MAKETIME(12, 11, 10);
+
+SELECT PERIOD_ADD(202501, 11), PERIOD_DIFF(202501, 202312);
+
+SELECT QUARTER('2025-07-07');
+
+SELECT TIME_TO_SEC('12:11:10');
+
